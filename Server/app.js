@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const usersRouter = require("./routes/users/index");
+const propertiesRouter = require("./routes/properties/index");
 const testRouter = require("./routes/test/test");
 
 /**
@@ -17,14 +18,14 @@ const testRouter = require("./routes/test/test");
 
 /**
  * =======================================
- *          PLAN DE ACCIÓN 🚀
+ *          PLAN DE ACCIÓN USERS 🚀
  * =======================================
  * [✅] Implementar el hashing de contraseñas con bcrypt
- * [❌] Crear un endpoint de login (/users/login)
+ * [✅] Crear un endpoint de login (/users/login)
  * [✅] Generar un Token JWT en el login con jsonwebtoken
  * [✅] Crear un middleware para proteger rutas
- * [❌] Aplicar el middleware a las rutas que necesiten protección
- * [❌] Añadir lógica de autorización en los endpoints (ej. solo borrar el propio usuario)
+ * [✅] Aplicar el middleware a las rutas que necesiten protección
+ * [✅] Añadir lógica de autorización en los endpoints (ej. solo borrar el propio usuario)
  */
 
 app.use(express.json());
@@ -36,6 +37,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", usersRouter);
+app.use("/properties", propertiesRouter);
 app.use("/test", testRouter);
 
 
