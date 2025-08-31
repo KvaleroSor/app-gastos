@@ -28,6 +28,18 @@ const testRouter = require("./routes/test/test");
  * [✅] Añadir lógica de autorización en los endpoints (ej. solo borrar el propio usuario)
  */
 
+/**
+ * =======================================
+ *          PLAN DE ACCIÓN PROPERTIES 🚀
+ * =======================================
+ * [❌] Implementar el hashing de contraseñas con bcrypt
+ * [❌] Crear un endpoint de login (/users/login)
+ * [❌] Generar un Token JWT en el login con jsonwebtoken
+ * [❌] Crear un middleware para proteger rutas
+ * [❌] Aplicar el middleware a las rutas que necesiten protección
+ * [❌] Añadir lógica de autorización en los endpoints (ej. solo borrar el propio usuario)
+ */
+
 app.use(express.json());
 
 app.get("/", (req, res) => {

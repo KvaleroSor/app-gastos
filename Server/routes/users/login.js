@@ -9,8 +9,10 @@ const jwt = require("jsonwebtoken");
  * @description Obtiene los datos del perfil del usuario autenticado.
  * @access Private
  */
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     const { email, password } = req.body;
+
+    console.log(`Email encontrado --> ${email}`);
 
     try {
         //Buscamos en la bbdd si hay algún email igual.
@@ -41,6 +43,7 @@ router.get("/", async (req, res) => {
         //Generamos el payload para el token.
         const payload = {
             userId: user.id,
+            role: user.role,
         };
 
         //Firmamos el token.

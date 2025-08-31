@@ -16,9 +16,9 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     //Id del usuario que queremos eliminar.
     const idToDelete = req.params.id;
     //Id del usuario que está haciendo la petición de eliminación.
-    const authenticatedUserId = req.user.userId;
+    const { userId: authenticationUserId, role: userRole } = req.user;
 
-    if(authenticatedUserId.toString() !== idToDelete){
+    if(userRole !== 'admin' && authenticationUserId.toString() !== idToDelete){
         return res.status(403).json({error: "Acción no permitida. No puedes eliminar a otros usuarios."});
     }
     try {

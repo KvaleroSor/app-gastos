@@ -22,9 +22,9 @@ router.post("/:id", authMiddleware, async (req, res) => {
     //Id del usuario que queremos modificar.
     const id_update = req.params.id;
     //Id del usuario que está haciendo la petición de modificación.
-    const authenticationUserId = req.user.userId;
+    const { userId: authenticationUserId, role: userRole } = req.user;
 
-    if(authenticationUserId.toString() !== id_update){
+    if(userRole !== 'admin' && authenticationUserId.toString() !== id_update){
         return res.status(403).json({error: "Acción no permitida. No puedes modificar a otros usuarios."});
     }
 
