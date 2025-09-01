@@ -23,6 +23,15 @@ router.post("/", authMiddleware, async (req, res) => {
         });
     }
 
+    /**
+     * PROBLEMAS A SOLUCIONAR 🔴
+     * 
+     * 1- Problema con la introducción del número de código postal.
+     *    
+     *    Si se introduce un "0" como primer valor del número en cuestión
+     *    no lo da como valor valido.
+     */
+
     try {
         const new_property = await pool.query(
             "INSERT INTO properties (name, direction, city, comunity, postal_code, purchase_price, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
