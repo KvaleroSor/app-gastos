@@ -19,37 +19,37 @@ const pool = require("../../db");
 const authMiddleware = require('../../middleware/authMiddleware');
 
 router.post("/:id", authMiddleware, async (req, res) => {
-    //Id del usuario que queremos modificar.
-    const id_update = req.params.id;
+    //Guardamos en una constante el id del usuario a modificar
+    const id_user_update = req.params.id;
     //Id del usuario que está haciendo la petición de modificación.
-    const { userId: authenticationUserId, role: userRole } = req.user;
+    const { userId: authenticationUserId, role: user_role } = req.user;
 
-    if(userRole !== 'admin' && authenticationUserId.toString() !== id_update){
+    if(user_role !== 'admin' && authenticationUserId.toString() !== id_user_update){
         return res.status(403).json({error: "Acción no permitida. No puedes modificar a otros usuarios."});
     }
 
     const fields = req.body;
-    const updateFields = [];
+    const update_fields = [];
     const values = [];
     let counter = 1;
 
     for (const key in fields) {
         if (fields[key] !== undefined && fields[key] !== null && fields[key] !== '') {
-            updateFields.push(`${key} = $${counter}`);
+            update_fields.push(`${key} = $${counter}`);
             values.push(fields[key]);
             counter++;
         }
     }
 
-    if (updateFields.length === 0) {
+    if (update_fields.length === 0) {
         return res.status(400).json({ error: "No hay campos válidos para actualizar" });
     }
 
     // Añadimos el id al final del array de valores para el WHERE
-    values.push(id_update);
+    values.push(id_user_update);
 
     // Construimos la consulta final de forma segura
-    const query = `UPDATE users SET ${updateFields.join(', ')} WHERE id = $${counter}`;
+    const query = `UPDATE users SET ${update_fields.join(', ')} WHERE id = $${counter}`;
 
     try {
         await pool.query(query, values);

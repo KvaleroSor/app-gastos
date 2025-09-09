@@ -17,6 +17,6 @@ const router = express.Router();
 // router.use("/delete", require("./delete_property_by_id"));
 // router.use("/getAll", require("./get_all_properties"));
 router.use("/create", require("./create_property"));
-// router.use("/update", require("./update_property"));
+router.use("/update", require("./update_property"));
 
 module.exports = router;
