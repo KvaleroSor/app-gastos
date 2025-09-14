@@ -30,6 +30,9 @@ router.post("/", async (req, res) => {
         //Guardamos el usuario si ha encontrado coincidencias.
         const user = resultQuery.rows[0];
 
+        // DEBUG: Imprimir el objeto de usuario completo para inspeccionarlo
+        console.log("User object from database:", user);
+
         //Comprobamos la contraseña de el usuario que ha encontrado por la coincidencia del email.
         const isMatch = await bcrypt.compare(password, user.password_hash);
         if (!isMatch) {

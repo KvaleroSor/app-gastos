@@ -10,10 +10,18 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../../db");
+const authMiddleware = require("../../middleware/authMiddleware");
 
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
+    const user_rool = req.user.role;    
+    let result; 
+
     try {
-        const result = await pool.query("SELECT * FROM users");
+        if(user_rool === 'admin'){
+            result = await pool.query("SELECT * FROM users");
+        }else{
+            return res.status(403).json({error: "No tiene permisos para mostrar los usuarios"});
+        }
 
         if (result.rowCount === 0) {
             return res

@@ -52,8 +52,6 @@ app.use("/users", usersRouter);
 app.use("/properties", propertiesRouter);
 app.use("/test", testRouter);
 
-
-
 app.listen(3000, () => {
     console.log("Servidor corriendo en el puerto 3000 🚀");
 });

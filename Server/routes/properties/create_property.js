@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../../db");
-const bcrypt = require("bcrypt");
+// const bcrypt = require("bcrypt");
 const authMiddleware = require("../../middleware/authMiddleware");
 
 router.post("/", authMiddleware, async (req, res) => {
